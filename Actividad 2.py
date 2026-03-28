@@ -38,3 +38,32 @@ def buscar(inicio, fin):
     ruta, costo = buscar("A", "C")
     print("Ruta:", ruta)
     print("Costo:", costo)
+
+    #  Pruebas 
+    def test_ruta_correcta():
+    ruta, _ = buscar("A", "C")
+    assert ruta in [["A", "B", "C"], ["A", "D", "C"]]
+    print("✔️ Test ruta válida OK")
+
+def test_costo_minimo():
+    _, costo = buscar("A", "C")
+    assert costo <= 15  # ruta óptima esperada
+    print("✔️ Test costo mínimo OK")
+
+def test_sin_ruta():
+    ruta, costo = buscar("C", "A")
+    assert ruta is None
+    assert costo == float("inf")
+    print("✔️ Test sin ruta OK")
+
+def test_mismo_origen_destino():
+    ruta, costo = buscar("A", "A")
+    assert ruta == ["A"]
+    assert costo == 0
+    print("✔️ Test mismo nodo OK")
+
+if _name_ == "_main_":
+    test_ruta_correcta()
+    test_costo_minimo()
+    test_sin_ruta()
+    test_mismo_origen_destino()
