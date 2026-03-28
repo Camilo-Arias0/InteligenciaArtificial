@@ -27,3 +27,14 @@ def buscar(inicio, fin):
 
         if nodo == fin:
             return ruta, costo
+         for destino, tiempo, nueva_linea in grafo[nodo]:
+            cambio = linea and linea != nueva_linea
+            nuevo_costo = evaluar(costo + tiempo, cambio)
+            heapq.heappush(cola, (nuevo_costo, destino, nueva_linea, ruta))
+
+            return None, float("inf")
+
+    # Ejecución
+    ruta, costo = buscar("A", "C")
+    print("Ruta:", ruta)
+    print("Costo:", costo)
