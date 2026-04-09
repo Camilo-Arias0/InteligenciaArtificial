@@ -54,3 +54,41 @@ nueva_ruta = pd.DataFrame([[9, 1, 0]],
 prediccion = modelo.predict(nueva_ruta)
 
 print("¿Es buena ruta? (1=Sí, 0=No):", prediccion[0])
+
+# ==============================
+# 7. PRUEBAS (QA)
+# ==============================
+
+def test_prediccion_valida():
+    assert prediccion[0] in [0, 1]
+    print("✔️ Test predicción válida OK")
+
+def test_precision_aceptable():
+    y_pred_test = modelo.predict(X_test)
+    acc = accuracy_score(y_test, y_pred_test)
+    assert acc >= 0.5
+    print("✔️ Test precisión OK")
+
+def test_ruta_simple():
+    prueba = pd.DataFrame([[8, 0, 0]],
+                          columns=["tiempo", "transbordos", "hora_pico"])
+    resultado = modelo.predict(prueba)[0]
+    assert resultado == 1
+    print("✔️ Test ruta simple OK")
+
+def test_ruta_compleja():
+    prueba = pd.DataFrame([[25, 3, 1]],
+                          columns=["tiempo", "transbordos", "hora_pico"])
+    resultado = modelo.predict(prueba)[0]
+    assert resultado == 0
+    print("✔️ Test ruta compleja OK")
+
+# ==============================
+# 8. EJECUTAR PRUEBAS
+# ==============================
+
+if _name_ == "_main_":
+    test_prediccion_valida()
+    test_precision_aceptable()
+    test_ruta_simple()
+    test_ruta_compleja()
