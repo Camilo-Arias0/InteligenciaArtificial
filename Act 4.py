@@ -61,5 +61,24 @@ data["cluster"] = kmeans.labels_
 # =========================
 score = silhouette_score(data_scaled, data["cluster"])
 print("\nSilhouette Score:", score)
+# =========================
+# 7. VISUALIZACIÓN
+# =========================
+plt.scatter(data["latitud"], data["longitud"], c=data["cluster"])
+plt.xlabel("Latitud")
+plt.ylabel("Longitud")
+plt.title("Clusters de transporte masivo")
+plt.show()
 
+# =========================
+# 8. ANÁLISIS DE CLUSTERS
+# =========================
+print("\nPromedios por cluster:")
+print(data.groupby("cluster").mean())
+
+# =========================
+# 9. GUARDAR RESULTADOS
+# =========================
+data.to_csv("resultado_clusters.csv", index=False)
+print("\nArchivo guardado como resultado_clusters.csv")
 
