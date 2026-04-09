@@ -16,3 +16,18 @@ data = {
 
 df = pd.DataFrame(data)
 
+# ==============================
+# 2. VARIABLES
+# ==============================
+
+X = df[["tiempo", "transbordos", "hora_pico"]]
+y = df["mejor_ruta"]
+
+# ==============================
+# 3. DIVIDIR DATOS
+# ==============================
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
