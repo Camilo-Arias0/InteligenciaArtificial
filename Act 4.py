@@ -32,4 +32,34 @@ print(data.head())
 scaler = StandardScaler()
 data_scaled = scaler.fit_transform(data)
 
+# =========================
+# 4. MÉTODO DEL CODO (para elegir K)
+# =========================
+inertia = []
+
+for k in range(1, 10):
+    kmeans = KMeans(n_clusters=k, random_state=0)
+    kmeans.fit(data_scaled)
+    inertia.append(kmeans.inertia_)
+
+plt.plot(range(1, 10), inertia, marker='o')
+plt.xlabel("Número de clusters")
+plt.ylabel("Inercia")
+plt.title("Método del codo")
+plt.show()
+
+# =========================
+# 5. MODELO K-MEANS
+# =========================
+kmeans = KMeans(n_clusters=3, random_state=0)
+kmeans.fit(data_scaled)
+
+data["cluster"] = kmeans.labels_
+
+# =========================
+# 6. EVALUACIÓN
+# =========================
+score = silhouette_score(data_scaled, data["cluster"])
+print("\nSilhouette Score:", score)
+
 
